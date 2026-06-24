@@ -1,0 +1,65 @@
+{
+  "bookings": [
+    {
+      "id": "booking_1782315541760_94b6640f",
+      "status": "received",
+      "createdAt": "2026-06-24T15:39:01.760Z",
+      "name": "vishal tyagi",
+      "whatsapp": "7409219402",
+      "email": "vishtyagi0007@gmail.com",
+      "eventDate": "26.06.2026",
+      "eventType": "Engagement / Proposal",
+      "packageName": "Gold"
+    },
+    {
+      "id": "booking_1782314080047_e27b67d2",
+      "status": "received",
+      "createdAt": "2026-06-24T15:14:40.047Z",
+      "name": "vishal tyagi",
+      "whatsapp": "7409219402",
+      "email": "vishtyagi0007@gmail.com",
+      "eventDate": "26.06.2026",
+      "eventType": "Engagement / Proposal",
+      "packageName": "Gold"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notification_1782315541761_d92a2b96",
+      "bookingId": "booking_1782315541760_94b6640f",
+      "channel": "email",
+      "recipient": "vishtyagi0007@gmail.com",
+      "status": "failed",
+      "message": "Hi vishal tyagi, your Gold package request for Engagement / Proposal on 26.06.2026 has been received. VantaFrame will contact you shortly to confirm availability and next steps.",
+      "createdAt": "2026-06-24T15:39:01.760Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "notification_1782315541761_627954b9",
+      "bookingId": "booking_1782315541760_94b6640f",
+      "channel": "whatsapp",
+      "recipient": "+7409219402",
+      "status": "disabled",
+      "message": "Hi vishal tyagi, your Gold package request for Engagement / Proposal on 26.06.2026 has been received. VantaFrame will contact you shortly to confirm availability and next steps.",
+      "createdAt": "2026-06-24T15:39:01.760Z"
+    },
+    {
+      "id": "notification_1782314080047_b7e2d6ab",
+      "bookingId": "booking_1782314080047_e27b67d2",
+      "channel": "email",
+      "recipient": "vishtyagi0007@gmail.com",
+      "status": "disabled",
+      "message": "Hi vishal tyagi, your Gold package request for Engagement / Proposal on 26.06.2026 has been received. VantaFrame will contact you shortly to confirm availability and next steps.",
+      "createdAt": "2026-06-24T15:14:40.047Z"
+    },
+    {
+      "id": "notification_1782314080047_4e2849d3",
+      "bookingId": "booking_1782314080047_e27b67d2",
+      "channel": "whatsapp",
+      "recipient": "+7409219402",
+      "status": "disabled",
+      "message": "Hi vishal tyagi, your Gold package request for Engagement / Proposal on 26.06.2026 has been received. VantaFrame will contact you shortly to confirm availability and next steps.",
+      "createdAt": "2026-06-24T15:14:40.047Z"
+    }
+  ]
+}
