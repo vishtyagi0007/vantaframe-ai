@@ -1,6 +1,32 @@
 {
   "bookings": [
     {
+      "id": "booking_1782387738233_1c054ff8",
+      "name": "vishl",
+      "whatsapp": "7445322323",
+      "email": "vishmsfnfn9999@gmail.com",
+      "eventDate": "06.08.2026",
+      "eventType": "Reels Creation Package",
+      "packageName": "Platinum",
+      "message": "hklkkk",
+      "status": "New",
+      "createdAt": "2026-06-25T11:42:18.233Z",
+      "updatedAt": "2026-06-25T11:42:18.233Z"
+    },
+    {
+      "id": "booking_1782387546141_4e6f54ec",
+      "name": "Vishal Tyagi",
+      "whatsapp": "07409219402",
+      "email": "vishtyagi0007@gmail.com",
+      "eventDate": "06.09.2026",
+      "eventType": "Reels Creation Package",
+      "packageName": "Silver",
+      "message": "hlo",
+      "status": "New",
+      "createdAt": "2026-06-25T11:39:06.141Z",
+      "updatedAt": "2026-06-25T11:39:06.141Z"
+    },
+    {
       "id": "booking_1782386379046_71fb31f7",
       "name": "Vishal Tyagi",
       "whatsapp": "07409219402",
@@ -41,6 +67,44 @@
     }
   ],
   "notifications": [
+    {
+      "id": "notification_1782387738233_2fd72b2a",
+      "bookingId": "booking_1782387738233_1c054ff8",
+      "channel": "email",
+      "recipient": "vishmsfnfn9999@gmail.com",
+      "status": "failed",
+      "message": "Hi vishl, your Platinum package request for Reels Creation Package on 06.08.2026 has been received. VantaFrame will contact you shortly to confirm availability and next steps.",
+      "createdAt": "2026-06-25T11:42:18.233Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "notification_1782387738233_702cad54",
+      "bookingId": "booking_1782387738233_1c054ff8",
+      "channel": "whatsapp",
+      "recipient": "+7445322323",
+      "status": "disabled",
+      "message": "Hi vishl, your Platinum package request for Reels Creation Package on 06.08.2026 has been received. VantaFrame will contact you shortly to confirm availability and next steps.",
+      "createdAt": "2026-06-25T11:42:18.233Z"
+    },
+    {
+      "id": "notification_1782387546141_50817beb",
+      "bookingId": "booking_1782387546141_4e6f54ec",
+      "channel": "email",
+      "recipient": "vishtyagi0007@gmail.com",
+      "status": "failed",
+      "message": "Hi Vishal Tyagi, your Silver package request for Reels Creation Package on 06.09.2026 has been received. VantaFrame will contact you shortly to confirm availability and next steps.",
+      "createdAt": "2026-06-25T11:39:06.141Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "notification_1782387546141_a6a9f4d2",
+      "bookingId": "booking_1782387546141_4e6f54ec",
+      "channel": "whatsapp",
+      "recipient": "+07409219402",
+      "status": "disabled",
+      "message": "Hi Vishal Tyagi, your Silver package request for Reels Creation Package on 06.09.2026 has been received. VantaFrame will contact you shortly to confirm availability and next steps.",
+      "createdAt": "2026-06-25T11:39:06.141Z"
+    },
     {
       "id": "notification_1782386379046_855edbf4",
       "bookingId": "booking_1782386379046_71fb31f7",
