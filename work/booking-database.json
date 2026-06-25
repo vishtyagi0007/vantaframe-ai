@@ -1,6 +1,19 @@
 {
   "bookings": [
     {
+      "id": "booking_1782390839946_e5db5cba",
+      "name": "Vishal Tyagi",
+      "whatsapp": "07409219402",
+      "email": "vishtyagi0007@gmail.com",
+      "eventDate": "26.06.2026",
+      "eventType": "Corporate Event",
+      "packageName": "Gold",
+      "message": "sasas",
+      "status": "New",
+      "createdAt": "2026-06-25T12:33:59.946Z",
+      "updatedAt": "2026-06-25T12:33:59.946Z"
+    },
+    {
       "id": "booking_1782390422860_eacf8b8f",
       "name": "Vishal Tyagi",
       "whatsapp": "07409219402",
@@ -119,6 +132,25 @@
     }
   ],
   "notifications": [
+    {
+      "id": "notification_1782390839947_bc0fe58c",
+      "bookingId": "booking_1782390839946_e5db5cba",
+      "channel": "email",
+      "recipient": "vishtyagi0007@gmail.com",
+      "status": "failed",
+      "message": "Hi Vishal Tyagi, your Gold package request for Corporate Event on 26.06.2026 has been received. VantaFrame will contact you shortly to confirm availability and next steps.",
+      "createdAt": "2026-06-25T12:33:59.946Z",
+      "error": "Email confirmation could not be sent."
+    },
+    {
+      "id": "notification_1782390839947_c6b8cfba",
+      "bookingId": "booking_1782390839946_e5db5cba",
+      "channel": "whatsapp",
+      "recipient": "+07409219402",
+      "status": "disabled",
+      "message": "Hi Vishal Tyagi, your Gold package request for Corporate Event on 26.06.2026 has been received. VantaFrame will contact you shortly to confirm availability and next steps.",
+      "createdAt": "2026-06-25T12:33:59.946Z"
+    },
     {
       "id": "notification_1782390422860_fb2ad76c",
       "bookingId": "booking_1782390422860_eacf8b8f",
