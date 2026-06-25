@@ -431,12 +431,18 @@ function FinalCta({ selectedPackage }: { selectedPackage: string }) {
         body: JSON.stringify(payload),
       });
       const responseText = await response.text();
-      const result = (responseText ? JSON.parse(responseText) : {}) as {
+      let result: {
         ok?: boolean;
         message?: string;
         emailSent?: boolean;
         whatsappSent?: boolean;
-      };
+      } = {};
+
+      try {
+        result = responseText ? JSON.parse(responseText) : {};
+      } catch {
+        result = { ok: false, message: "Server response was not readable. Please try again." };
+      }
 
       if (!response.ok || !result.ok) {
         throw new Error(result.message || "Booking could not be completed. Please try again.");

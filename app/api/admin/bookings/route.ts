@@ -7,8 +7,46 @@ import {
 } from "@/lib/bookingStore";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 
+const packageRevenue: Record<string, number> = {
+  Silver: 9999,
+  Gold: 19999,
+  Platinum: 34999,
+};
+
 function matchesSearch(value: string, search: string) {
   return value.toLowerCase().includes(search.toLowerCase());
+}
+
+function getLeadValue(packageName: string) {
+  return packageRevenue[packageName] || 0;
+}
+
+function createMetrics(bookings: Awaited<ReturnType<typeof readDatabase>>["bookings"]) {
+  const statusCounts = leadStatuses.reduce(
+    (counts, status) => ({ ...counts, [status]: bookings.filter((booking) => booking.status === status).length }),
+    {} as Record<LeadStatus, number>,
+  );
+  const pipelineRevenue = bookings
+    .filter((booking) => booking.status !== "Cancelled")
+    .reduce((sum, booking) => sum + getLeadValue(booking.packageName), 0);
+  const confirmedRevenue = bookings
+    .filter((booking) => booking.status === "Confirmed")
+    .reduce((sum, booking) => sum + getLeadValue(booking.packageName), 0);
+  const cancelledRevenue = bookings
+    .filter((booking) => booking.status === "Cancelled")
+    .reduce((sum, booking) => sum + getLeadValue(booking.packageName), 0);
+  const conversionRate = bookings.length
+    ? Math.round((statusCounts.Confirmed / bookings.length) * 100)
+    : 0;
+
+  return {
+    statusCounts,
+    pipelineRevenue,
+    confirmedRevenue,
+    cancelledRevenue,
+    conversionRate,
+    packageRevenue,
+  };
 }
 
 export async function GET(request: Request) {
@@ -53,6 +91,8 @@ export async function GET(request: Request) {
     totalCount: database.bookings.length,
     packageOptions,
     statusOptions: leadStatuses,
+    metrics: createMetrics(database.bookings),
+    filteredMetrics: createMetrics(filteredBookings),
   });
 }
 
