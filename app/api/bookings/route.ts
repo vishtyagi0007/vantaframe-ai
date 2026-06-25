@@ -10,10 +10,7 @@ async function sendAdminEmail(booking: any) {
   const apiKey = process.env.RESEND_API_KEY;
   const adminEmail = process.env.ADMIN_EMAIL;
 
-  if (!apiKey || !adminEmail) {
-    console.log("Email skipped: RESEND_API_KEY or ADMIN_EMAIL missing.");
-    return false;
-  }
+  if (!apiKey || !adminEmail) return false;
 
   const emailResponse = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -42,7 +39,49 @@ async function sendAdminEmail(booking: any) {
 
   if (!emailResponse.ok) {
     const errorText = await emailResponse.text();
-    console.error("Resend email error:", errorText);
+    console.error("Admin email error:", errorText);
+    return false;
+  }
+
+  return true;
+}
+
+async function sendCustomerEmail(booking: any) {
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey || !booking.email) return false;
+
+  const emailResponse = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: "VantaFrame <onboarding@resend.dev>",
+      to: booking.email,
+      subject: "Your VantaFrame booking request is received",
+      html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; color:#151020;">
+          <h2>Hi ${booking.name},</h2>
+          <p>Thank you for choosing <strong>VantaFrame</strong>.</p>
+          <p>Your booking request has been received successfully. Our team will contact you shortly to confirm availability and next steps.</p>
+
+          <h3>Booking Details</h3>
+          <p><strong>Event Date:</strong> ${booking.eventDate}</p>
+          <p><strong>Event Type:</strong> ${booking.eventType}</p>
+          <p><strong>Package:</strong> ${booking.packageName}</p>
+          <p><strong>Message:</strong> ${booking.message}</p>
+
+          <p style="margin-top:24px;">Regards,<br/><strong>Team VantaFrame</strong></p>
+        </div>
+      `,
+    }),
+  });
+
+  if (!emailResponse.ok) {
+    const errorText = await emailResponse.text();
+    console.error("Customer email error:", errorText);
     return false;
   }
 
@@ -109,13 +148,17 @@ export async function POST(request: Request) {
       );
     }
 
-    const emailSent = await sendAdminEmail(data[0]);
+    const savedBooking = data[0];
+
+    const adminEmailSent = await sendAdminEmail(savedBooking);
+    const customerEmailSent = await sendCustomerEmail(savedBooking);
 
     return NextResponse.json({
       ok: true,
-      message: "Booking saved successfully with admin email.",
-      booking: data[0],
-      emailSent,
+      message: "Booking saved successfully with admin and customer email.",
+      booking: savedBooking,
+      adminEmailSent,
+      customerEmailSent,
     });
   } catch (error) {
     console.error(error);
