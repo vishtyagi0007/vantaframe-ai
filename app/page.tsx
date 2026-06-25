@@ -400,15 +400,15 @@ function FinalCta({ selectedPackage }: { selectedPackage: string }) {
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-      const payload = {
-        name: String(formData.get("name") || "").trim(),
-        whatsapp: String(formData.get("whatsapp") || "").trim(),
-        email: String(formData.get("email") || "").trim(),
-        eventDate: String(formData.get("eventDate") || "").trim(),
-        eventType: String(formData.get("eventType") || "").trim(),
-        packageName: String(formData.get("packageName") || selectedPackage || "").trim(),
-        message: String(formData.get("message") || "").trim(),
-      };
+    const payload = {
+      name: String(formData.get("name") || "").trim(),
+      whatsapp: String(formData.get("whatsapp") || "").trim(),
+      email: String(formData.get("email") || "").trim(),
+      eventDate: String(formData.get("eventDate") || "").trim(),
+      eventType: String(formData.get("eventType") || "").trim(),
+      packageName: String(formData.get("packageName") || selectedPackage || "").trim(),
+      message: String(formData.get("message") || "").trim(),
+    };
 
     if (
       !payload.name ||
@@ -435,7 +435,7 @@ function FinalCta({ selectedPackage }: { selectedPackage: string }) {
         message?: string;
         emailSent?: boolean;
         whatsappSent?: boolean;
-      };
+    };
 
       if (!response.ok || !result.ok) {
         throw new Error(result.message || "Booking could not be completed.");
