@@ -430,15 +430,16 @@ function FinalCta({ selectedPackage }: { selectedPackage: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const result = (await response.json()) as {
+      const responseText = await response.text();
+      const result = (responseText ? JSON.parse(responseText) : {}) as {
         ok?: boolean;
         message?: string;
         emailSent?: boolean;
         whatsappSent?: boolean;
-    };
+      };
 
       if (!response.ok || !result.ok) {
-        throw new Error(result.message || "Booking could not be completed.");
+        throw new Error(result.message || "Booking could not be completed. Please try again.");
       }
 
       setStatus("success");
