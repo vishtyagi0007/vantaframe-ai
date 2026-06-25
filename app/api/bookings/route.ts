@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import type { BookingPayload } from "@/lib/bookingStore";
 
 export const runtime = "nodejs";
 
@@ -9,53 +8,66 @@ function clean(value: unknown) {
 
 export async function POST(request: Request) {
   try {
-    const rawPayload = (await request.json()) as BookingPayload;
+    const raw = await request.json();
 
-    const payload = {
-      name: clean(rawPayload.name),
-      whatsapp: clean(rawPayload.whatsapp),
-      email: clean(rawPayload.email),
-      eventDate: clean(rawPayload.eventDate),
-      eventType: clean(rawPayload.eventType),
-      packageName: clean(rawPayload.packageName),
-      message: clean(rawPayload.message),
+    const booking = {
+      name: clean(raw.name),
+      whatsapp: clean(raw.whatsapp),
+      email: clean(raw.email),
+      eventDate: clean(raw.eventDate),
+      eventType: clean(raw.eventType),
+      packageName: clean(raw.packageName),
+      message: clean(raw.message),
+      status: "New",
     };
 
-    if (
-      !payload.name ||
-      !payload.whatsapp ||
-      !payload.email ||
-      !payload.eventDate ||
-      !payload.eventType ||
-      !payload.packageName ||
-      !payload.message
-    ) {
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_PUBLISHABLE_KEY;
+
+    if (!supabaseUrl || !supabaseKey) {
       return NextResponse.json(
-        { ok: false, message: "Please fill all required fields." },
-        { status: 400 }
+        { ok: false, message: "Supabase env variables missing." },
+        { status: 500 }
       );
     }
 
-    if (!payload.email.includes("@")) {
+    const response = await fetch(`${supabaseUrl}/rest/v1/bookings`, {
+      method: "POST",
+      headers: {
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`,
+        "Content-Type": "application/json",
+        Prefer: "return=representation",
+      },
+      body: JSON.stringify(booking),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
       return NextResponse.json(
-        { ok: false, message: "Please enter a valid email address." },
-        { status: 400 }
+        {
+          ok: false,
+          message: "Booking save failed.",
+          error: data,
+        },
+        { status: 500 }
       );
     }
-
-    console.log("New booking received:", payload);
 
     return NextResponse.json({
       ok: true,
-      message:
-        "Booking request received successfully. Our team will contact you shortly.",
-      booking: payload,
+      message: "Booking saved successfully.",
+      booking: data[0],
     });
   } catch (error) {
-    console.error("Booking API crashed:", error);
+    console.error(error);
 
     return NextResponse.json(
-      { ok: false, message: "Booking server error. Please contact us on WhatsApp." },
+      {
+        ok: false,
+        message: "Booking server error.",
+      },
       { status: 500 }
     );
   }
